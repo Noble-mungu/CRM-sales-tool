@@ -5,8 +5,8 @@ from django.views.generic import TemplateView, CreateView
 from .forms import SignUpForm, UserForm, ProfileForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.contrib import messages
 from apps.userprofile.models import Profile
+from django.core.mail import send_mail
 
 from django.contrib import messages
 

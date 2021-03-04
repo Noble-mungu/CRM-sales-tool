@@ -1,6 +1,12 @@
 from pathlib import Path
 import os
+import environ
 
+env = environ.Env(
+# set casting, default value
+DEBUG=(bool, False)
+)
+environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -10,7 +16,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '4j&zt_vtu#f^w3isv+1yqeerm!l+dqfyvhaz&b$@sbt_3=e(3c'
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -103,7 +109,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'crm',
         'USER': 'postgres',
-        'PASSWORD': 'kingjosh',
+        'PASSWORD': env.str('PASSWORD'),
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -156,11 +162,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = 'dashboard'
 
-# print email in console
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '865sokwd422v51'
-SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'zSwwgbCcLCwxAQ1Y'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = env.str('SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY')
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = env.str('SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET')
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/dashboard/'
 SOCIAL_AUTH_LOGIN_URL = '/'
+
+# print email in console
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'sm.crm.tool@gmail.com'
+EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
