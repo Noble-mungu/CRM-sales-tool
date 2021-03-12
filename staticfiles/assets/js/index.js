@@ -3,22 +3,22 @@ $(function() {
 
      // chart 1
 	 
-		  var ctx = document.getElementById('chart1').getContext('2d');
+		  var ctx = document.getElementById('chart1').getContext('3d');
 		
 			var myChart = new Chart(ctx, {
-				type: 'line',
+				type: 'Line',
 				data: {
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov" "Dec"],
 					datasets: [{
 						label: 'New Visitor',
-						data: [3, 3, 8, 5, 7, 4, 6, 4, 6, 3],
+						data: [3, 3, 8, 5, 7, 4, 6, 4, 6, 3, 5, 7],
 						backgroundColor: '#fff',
 						borderColor: "transparent",
 						pointRadius :"0",
 						borderWidth: 3
 					}, {
 						label: 'Old Visitor',
-						data: [7, 5, 14, 7, 12, 6, 10, 6, 11, 5],
+						data: [7, 5, 14, 7, 12, 6, 10, 6, 11, 5, 8, 9],
 						backgroundColor: "rgba(255, 255, 255, 0.25)",
 						borderColor: "transparent",
 						pointRadius :"0",

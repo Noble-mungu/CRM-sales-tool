@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from apps.common.views import ProfileUpdateView, ProfileView, SignUpView, DashboardView
+from apps.linkedin.views import LinkedinView
 from django.views.generic import TemplateView
 
 from django.contrib.auth import views as auth_views
@@ -26,10 +27,12 @@ urlpatterns = [
     path('profile/', ProfileView.as_view(), name='profile'),
 
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('linkedin/', LinkedinView.as_view(), name='linkedin'),
 
     path('change-password/', auth_views.PasswordChangeView.as_view(
         template_name='common/change-password.html',
         success_url='/'), name='change-password'),
+
 
     # Forgot password
 

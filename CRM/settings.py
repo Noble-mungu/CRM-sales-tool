@@ -18,9 +18,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -37,6 +37,7 @@ THIRD_PARTY_APPS = [
     'crispy_forms',
     'django_cleanup',
     'social_django',
+    'rest_framework',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -44,6 +45,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOCAL_APPS = [
     'apps.common',
     'apps.userprofile',
+    'apps.linkedin',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -159,6 +161,8 @@ LOGIN_REDIRECT_URL = 'dashboard'
 
 SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = env.str('SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY')
 SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = env.str('SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET')
+
+LINKEDIN_SECRET = env.str("LINKEDIN_SECRET")
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/dashboard/'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login/'
