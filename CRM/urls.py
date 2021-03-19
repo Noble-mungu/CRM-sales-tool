@@ -28,7 +28,6 @@ urlpatterns = [
 
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     path('linkedin/', LinkedinView.as_view(), name='linkedin'),
-    path('index/', TemplateView.as_view(template_name="index.html")),
 
     path('change-password/', auth_views.PasswordChangeView.as_view(
         template_name='common/change-password.html',
