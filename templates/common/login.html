@@ -72,6 +72,8 @@
                     <div class="text-center mt-3">Sign In With</div>
                     <br>
 
+                    {% load socialaccount %}
+
                     <div class="container text-center">
 
                         <a class="btn btn-light"
@@ -88,7 +90,7 @@
 
                         <a class="btn btn-light"
                            style="background-color: #007BB6"
-                           href="{% url 'social:begin' backend='linkedin-oauth2' %}"
+                           href="{% provider_login_url 'linkedin_oauth2' %}"
                            role="button">
                             <i class="fa fa-linkedin fa-2x"> </i></a>
 
@@ -124,7 +126,7 @@
         </div>
         <div class="right-sidebar-content">
 
-            <p class="mb-0">Gaussion Texture</p>
+            <p class="mb-0">Gradient Texture</p>
             <hr>
 
             <ul class="switcher">

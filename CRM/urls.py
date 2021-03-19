@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from apps.common.views import ProfileUpdateView, ProfileView, SignUpView, DashboardView
-from apps.linkedin.views import LinkedinView
+from apps.linkedin.views import LinkedinView, exchange_token
 from django.views.generic import TemplateView
 
 from django.contrib.auth import views as auth_views
@@ -28,11 +28,14 @@ urlpatterns = [
 
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     path('linkedin/', LinkedinView.as_view(), name='linkedin'),
+    path('index/', TemplateView.as_view(template_name="index.html")),
 
     path('change-password/', auth_views.PasswordChangeView.as_view(
         template_name='common/change-password.html',
         success_url='/'), name='change-password'),
 
+    path('api/social/<str:backend>/', exchange_token),
+    path('accounts/', include('allauth.urls')),
 
     # Forgot password
 

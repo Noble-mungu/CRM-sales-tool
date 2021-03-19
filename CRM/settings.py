@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 import environ
+from datetime import timedelta
 
 env = environ.Env(
     # set casting, default value
@@ -31,13 +32,20 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 THIRD_PARTY_APPS = [
     'crispy_forms',
     'django_cleanup',
-    'social_django',
-    'rest_framework',
+    # 'social_django',
+    # 'rest_framework',
+    # 'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.linkedin_oauth2',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -49,6 +57,28 @@ LOCAL_APPS = [
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_RENDERER_CLASSES': [
+#         'rest_framework.renderers.JSONRenderer',
+#     ],
+#
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#         'rest_framework.permissions.AllowAny',
+#     ),
+#
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.TokenAuthentication',
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ),
+# }
+#
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(days=3),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+#     'SIGNING_KEY': os.environ['SECRET_KEY'],
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,6 +119,7 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.linkedin.LinkedinOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 WSGI_APPLICATION = 'CRM.wsgi.application'
@@ -159,10 +190,55 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = 'dashboard'
 
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+
+# SOCIALACCOUNT_PROVIDERS = {
+#     'linkedin': {
+#         'SCOPE': [
+#             'r_liteprofile',
+#             'r_emailaddress',
+#             'w_member_social',
+#         ],
+#         'PROFILE_FIELDS': [
+#             'id',
+#             'first-name',
+#             'last-name',
+#             'emailAddress',
+#             'email-address',
+#             'picture-url',
+#             'public-profile-url',
+#         ],
+#         'LOCATION_FIELDS': [
+#             'location',
+#         ],
+#         'POSITION_FIELDS': [
+#             'company',
+#         ]
+#     }
+# }
+
+# for key in [env.str('SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY'),
+#             env.str('SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET'), ]:
+#     exec("SOCIAL_AUTH_{key} = os.environ.get('{key}', '')".format(key=key))
+
+# # Add email to requested authorizations.
+# SOCIAL_AUTH_LINKEDIN_OAUTH2_SCOPE = ['r_liteprofile', 'r_emailaddress']
+# # Add the fields so they will be requested from linkedin.
+# SOCIAL_AUTH_LINKEDIN_OAUTH2_FIELD_SELECTORS = ['emailAddress']
+# # Arrange to add the fields to UserSocialAuth.extra_data
+# SOCIAL_AUTH_LINKEDIN_OAUTH2_EXTRA_DATA = [('id', 'id'),
+#                                           ('firstName', 'first_name'),
+#                                           ('lastName', 'last_name'),
+#                                           ('emailAddress', 'email_address')]
+
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
+
 SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = env.str('SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY')
 SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = env.str('SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET')
 
-LINKEDIN_SECRET = env.str("LINKEDIN_SECRET")
+LINKEDIN_SECRET = env.str('SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET')
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/dashboard/'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login/'
@@ -170,9 +246,24 @@ SOCIAL_AUTH_LOGIN_URL = '/'
 
 # print email in console
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# sending actual email to an existing email address
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'sm.crm.tool@gmail.com'
 EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',  # <- this line not included by default
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
