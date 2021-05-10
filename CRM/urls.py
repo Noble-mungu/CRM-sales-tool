@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
-
+from apps.common import views
 from apps.common.views import ProfileUpdateView, ProfileView, SignUpView, DashboardView
+from apps.instagram.views import *
 from apps.linkedin.views import LinkedinView, exchange_token
 from django.views.generic import TemplateView
 
@@ -35,7 +36,12 @@ urlpatterns = [
 
     path('api/social/<str:backend>/', exchange_token),
     path('accounts/', include('allauth.urls')),
-
+   path('instagram/', instagramView, name='instagram'),
+   path('personal-profile/', personal_profile, name='personal-profile'),
+   path('competitors-profile/', competitors_profile, name='competitors-profile'),
+   path('post/', show_post, name='posts'),
+   path('upload/', upload_pic, name='upload'),
+    
     # Forgot password
 
     path('password-reset/',

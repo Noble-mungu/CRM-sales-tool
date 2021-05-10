@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from apps.userprofile.models import Profile
 from django.core.mail import send_mail
-
 from django.contrib import messages
 
 
@@ -68,5 +67,9 @@ class ProfileUpdateView(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
+# class Instagram(TemplateView):
+#     template_name = 'common/instagram.html'
+# 
+
 
 
