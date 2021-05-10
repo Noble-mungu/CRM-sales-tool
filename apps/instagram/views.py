@@ -51,3 +51,51 @@ def show_post(required,post_id):
     comments = list(Comment.object.filter(post=post))
     print(comment)
     return render(request,'common/post.html',{'post':post,'comments':comments})
+@login_required(login_url='/login')
+def like_post(request):
+    if request.method =='POST':
+        if request.POST.get('like'):
+            post_id = int(request.POST.get('like'))
+            if isinstance(post_id, int):
+                print(post_id)
+                post_to_like = Post.objects.get(id = post_id)
+                like_post = Like(username=request.user.username)
+                like_post.save()
+                like_post.post.add(post_to_like)
+                data = {'success': 'Successfully liked the post'}
+                return JsonResponse(data)
+            else:
+                data = {'fail': 'Something wrong happened.'}
+                return JsonResponse(data)
+
+
+@login_required(login_url='/login')
+def make_comment(request):
+    if request.method =='POST':
+        if request.POST.get('comment'):
+            post_id = int(request.POST.get('post'))
+            comment = request.POST.get('comment')
+        elif request.POST.get('comment-lg'):
+            post_id = int(request.POST.get('post-lg'))
+            comment = request.POST.get('comment-lg')
+        else:
+            data = {'fail': 'Something wrong happened.'}
+            return JsonResponse(data)
+
+        if isinstance(post_id, int):
+            print(post_id)
+            print(comment)
+            post_to_comment = Post.objects.get(id = post_id)
+            comment_post = Comment(username=request.user.username, comment = comment)
+            comment_post.save()
+            comment_post.post.add(post_to_comment)
+            profile = Profile.objects.filter(user=request.user.id).exists()
+            if profile:
+                comment = {'user': request.user.username,'image': request.user.profile.profile_image.url, 'comment': comment}
+            else:
+                comment = {'user': request.user.username,'image': None, 'comment': comment}
+            data = {'success': 'Successfully liked the post', 'comment': comment}
+            return JsonResponse(data)
+        else:
+            data = {'fail': 'Something wrong happened.'}
+            return JsonResponse(data)
