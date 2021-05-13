@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django import forms
 
 def instagramView(request):
     return render(request,'common/instagram.html')
@@ -99,3 +100,5 @@ def make_comment(request):
         else:
             data = {'fail': 'Something wrong happened.'}
             return JsonResponse(data)
+
+

@@ -1,34 +1,39 @@
 from django.db import models
-from django.db import models
 from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-User = get_user_model
+User =  get_user_model()
 
-class Profile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
-    profile_image = models.ImageField(upload_to = 'personal-profile/' )
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     profile_image = models.ImageField(upload_to = 'personal-profile/')
+
 
 class Post(models.Model):
-    user = image.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     post_image = models.ImageField(upload_to = 'posts/')
     post_description = models.CharField(max_length=200)
     upload_date = models.DateField(auto_now_add=True)
 
+   
     @classmethod
     def get_all_posts(cls):
-        return Posts.objects.all()
+        return Post.objects.all()
 
     @classmethod
-    def get_posts_for_user(cls,id):
+    def get_posts_for_user(cls, id):
         return list(Post.objects.filter(user = id))
+
+
+
 
 class Like(models.Model):
     username = models.CharField(max_length=100)
     post = models.ManyToManyField(Post)
 
-class Comment(modles.Model):
+
+class Comment(models.Model):
     username = models.CharField(max_length=100)
-    post models.ManyToManyField(Post)
-    commet = models.CharField(max_length=250)
+    post = models.ManyToManyField(Post)
+    comment = models.CharField(max_length=250)

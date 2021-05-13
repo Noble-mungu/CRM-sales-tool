@@ -1,3 +1,9 @@
+
+
+
+
+
+
 {% load static %}
 
 <html lang="en">
@@ -15,6 +21,8 @@
     <script src="{% static 'assets/js/pace.min.js' %}"></script>
     <!--favicon-->
     <link rel="icon" href="{% static 'assets/images/logoicon.ico' %}" type="image/x-icon">
+    <!--Full Calendar Css-->
+    <link href="{% static 'assets/plugins/fullcalendar/css/fullcalendar.min.css' %}" rel='stylesheet'/>
     <!-- Vector CSS -->
     <link href="{% static 'assets/plugins/vectormap/jquery-jvectormap.css' %}" rel="stylesheet"/>
     <!-- simplebar CSS-->
@@ -29,7 +37,8 @@
     <link href="{% static 'assets/css/sidebar-menu.css' %}" rel="stylesheet"/>
     <!-- Custom Style-->
     <link href="{% static 'assets/css/app-style.css' %}" rel="stylesheet"/>
-
+    <!-- Navigation CSS-->
+    <link href="{% static 'assets/css/style-4.css' %}" rel="stylesheet"/>
 
     <style>
     .button{
@@ -39,7 +48,11 @@
     }
     .btn-light {border-radius: 12px;}
 
+
+
+
     </style>
+    <!--Icons-->
 
 </head>
 
@@ -58,6 +71,7 @@
         </div>
         <ul class="sidebar-menu do-nicescrol">
             <li class="sidebar-header">MAIN NAVIGATION</li>
+
             <li>
                 <a href="{% url 'dashboard' %}">
                     <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
@@ -65,49 +79,124 @@
             </li>
 
             <li>
-                <a href="icons.html">
+                <a href="{% url 'profile' %}">
+                    <i class="fa fa-user-circle"></i> <span>Profile</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="icon-people"></i> <span>My Teams</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="fa fa-tasks"></i> <span>My Tasks</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="ti-files"></i> <span>My Documents</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="zmdi zmdi-google-drive"></i> <span>Google Drive</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="fa fa-file-text-o"></i> <span>Google Forms</span>
+                </a>
+            </li>
+
+            <li>
+                    <i class="fa fa-calendar"></i> <span>Calendar</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="fa fa-search-plus"></i> <span>Prospects</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="icon-graph"></i> <span>Email Marketing</span>
+                </a>
+            </li>
+
+            <li>
+                    <i class="icon-bubbles"></i> <span>Social Media</span>
+                </a>
+            </li>
+
+            <li>
+                    <i class="icon-phone"></i> <span>Calls</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="zmdi zmdi-smartphone-android"></i> <span>SMS Marketing</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="ti-headphone-alt"></i> <span>Customer service</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="fa fa-line-chart"></i> <span>Hire Sales & Marketing Experts</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="ti-user"></i> <span>Hire Customer Service Professionals</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#!">
+                    <i class="fa fa-user-plus"></i> <span>Hire Influencers</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">SECONDARY</li>
+
+            <li>
+                <a href="#!">
                     <i class="zmdi zmdi-invert-colors"></i> <span>Blog</span>
                 </a>
             </li>
 
             <li>
-                <a href="{% url 'linkedin' %}">
-                    <i class="fa fa-linkedin fa-2x"> </i> <span>Linkedin</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="tables.html">
-                    <i class="zmdi zmdi-grid"></i> <span>Tables</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="calendar.html">
-                    <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
+                <a href="#">
+                    <i class="icon-bubble fa-2x"> </i> <span>Chat</span>
                     <small class="badge float-right badge-light">New</small>
                 </a>
             </li>
 
             <li>
-                <a href="{% url 'profile' %}">
-                    <i class="zmdi zmdi-face"></i> <span>Profile</span>
+                    <i class="icon-people fa-2x"> </i> <span>Contacts</span>
+                    <small class="badge float-right badge-light">New</small>
                 </a>
             </li>
 
             <li>
-                <a href="{% url 'change-password' %}">
                     <i class="zmdi zmdi-key"></i> <span>Change Password</span>
                 </a>
             </li>
 
-            <li>
-                <a href="register.html" target="_blank">
-                    <i class="zmdi zmdi-account-circle"></i> <span>Registration</span>
-                </a>
-            </li>
-
-            <li class="sidebar-header">LABELS</li>
             <li><a href="javaScript:void();"><i class="zmdi zmdi-coffee text-danger"></i> <span>Important</span></a></li>
             <li><a href="javaScript:void();"><i class="zmdi zmdi-chart-donut text-success"></i> <span>Warning</span></a></li>
             <li><a href="javaScript:void();"><i class="zmdi zmdi-share text-info"></i> <span>Information</span></a></li>
@@ -195,7 +284,6 @@
 
             {% block content %}
 
-
             {% endblock content %}
 
             <!--End Dashboard Content-->
@@ -226,6 +314,7 @@
                 Copyright © 2021 Real Biz Digital | CRM
             </div>
         </div>
+        </div>
     </footer>
     <!--End footer-->
 
@@ -246,12 +335,6 @@
                 <li id="theme4"></li>
                 <li id="theme5"></li>
                 <li id="theme6"></li>
-            </ul>
-
-            <p class="mb-0">Gradient Background</p>
-            <hr>
-
-            <ul class="switcher">
                 <li id="theme7"></li>
                 <li id="theme8"></li>
                 <li id="theme9"></li>
@@ -261,6 +344,31 @@
                 <li id="theme13"></li>
                 <li id="theme14"></li>
                 <li id="theme15"></li>
+                <li id="theme16"></li>
+                <li id="theme17"></li>
+                <li id="theme18"></li>
+                <li id="theme19"></li>
+                <li id="theme20"></li>
+                <li id="theme21"></li>
+                <li id="theme22"></li>
+
+
+            </ul>
+
+            <p class="mb-0">Gradient Background</p>
+            <hr>
+
+            <ul class="switcher">
+                <li id="theme23"></li>
+                <li id="theme24"></li>
+                <li id="theme25"></li>
+                <li id="theme26"></li>
+                <li id="theme27"></li>
+                <li id="theme28"></li>
+                <li id="theme29"></li>
+                <li id="theme30"></li>
+                <li id="theme31"></li>
+
             </ul>
 
         </div>
@@ -283,19 +391,26 @@
 <!-- Custom scripts -->
 <script src="{% static 'assets/js/app-script.js' %}"></script>
 <!-- Chart js -->
-
 <script src="{% static 'assets/plugins/Chart.js/Chart.min.js' %}"></script>
-
 <!-- Index js -->
 <script src="{% static 'assets/js/index.js' %}"></script>
+<!-- Full Calendar -->
+<script src="{% static 'assets/plugins/fullcalendar/js/moment.min.js' %}"></script>
+<script src="{% static 'assets/plugins/fullcalendar/js/fullcalendar.min.js' %}"></script>
+<script src="{% static 'assets/plugins/fullcalendar/js/fullcalendar-custom-script.js' %}"></script>
 
-  <script>
+<script>
     setTimeout(function(){
       if ($('#msg').length > 0) {
         $('#msg').remove();
       }
     }, 4000)
-  </script>
+
+
+
+
+
+</script>
 
 </body>
 </html>

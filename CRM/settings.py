@@ -55,6 +55,7 @@ LOCAL_APPS = [
     'apps.common',
     'apps.userprofile',
     'apps.linkedin',
+    'apps.instagram',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
